@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph.xml"
+    app:startDestination="@id/horoscopeFragment">
+
+    <fragment
+        android:id="@+id/horoscopeFragment"
+        android:name="com.bruno.horoscopeproject.ui.horoscope.HoroscopeFragment"
+        android:label="fragment_horoscope"
+        tools:layout="@layout/fragment_horoscope" />
+    <fragment
+        android:id="@+id/luckyFragment"
+        android:name="com.bruno.horoscopeproject.ui.lucky.LuckyFragment"
+        android:label="fragment_lucky"
+        tools:layout="@layout/fragment_lucky" />
+    <fragment
+        android:id="@+id/palmistryFragment"
+        android:name="com.bruno.horoscopeproject.ui.palmistry.PalmistryFragment"
+        android:label="fragment_palmistry"
+        tools:layout="@layout/fragment_palmistry" />
+</navigation>
