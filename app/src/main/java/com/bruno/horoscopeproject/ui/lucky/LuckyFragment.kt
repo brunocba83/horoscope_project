@@ -1,6 +1,7 @@
 package com.bruno.horoscopeproject.ui.lucky
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,8 +16,11 @@ import androidx.core.view.isVisible
 import com.bruno.horoscopeproject.R
 import com.bruno.horoscopeproject.R.*
 import com.bruno.horoscopeproject.databinding.FragmentLuckyBinding
+import com.bruno.horoscopeproject.ui.core.listeners.OnSwipeTouchListener
+import com.bruno.horoscopeproject.ui.providers.RandomCardProvider
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Random
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -25,20 +29,53 @@ class LuckyFragment : Fragment() {
     private var _binding : FragmentLuckyBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var randomCardProvider: RandomCardProvider
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
     }
 
     private fun initUI() {
+        preparePrediction()
         initListeners()
     }
 
-    private fun initListeners() {
-        binding.ivRoulette.setOnClickListener {
-            spinRoulette()
-
+    private fun preparePrediction() {
+        val currentLuck = randomCardProvider.getLucky()
+        currentLuck?.let { luck ->
+            val luckText = getString(luck.text)
+            binding.tvlucky.text = luckText
+            binding.ivLuckyCard.setImageResource(luck.image)
+            binding.tvShare.setOnClickListener { shareResult(luckText) }
         }
+    }
+
+    private fun shareResult(luckText: String) {
+        val sendIntent : Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, luckText)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+
+    }
+
+    private fun initListeners() {
+
+        binding.ivRoulette.setOnTouchListener(object : OnSwipeTouchListener(requireContext()){
+            override fun onSwipeLeft() {
+                spinRoulette()
+            }
+
+            override fun onSwipeRight() {
+                spinRoulette()
+            }
+        })
+
     }
 
     private fun spinRoulette() {
@@ -62,11 +99,9 @@ class LuckyFragment : Fragment() {
 
             override fun onAnimationEnd(p0: Animation?) {
                 growCard()
-
             }
 
             override fun onAnimationRepeat(p0: Animation?) {
-
             }
         })
         binding.ivReverse.startAnimation(slideUpAnimation)
