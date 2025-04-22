@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bruno.horoscopeproject.databinding.FragmentHoroscopeBinding
 import com.bruno.horoscopeproject.domain.model.HoroscopeInfo
 import com.bruno.horoscopeproject.domain.model.HoroscopeModel
@@ -44,17 +43,17 @@ class HoroscopeFragment : Fragment() {
         adapterHoroscope = HoroscopeAdapter (onItemSelected = {
 
             val type = when(it) {
-                HoroscopeInfo.Acuario -> HoroscopeModel.Acuario
+                HoroscopeInfo.Acuario -> HoroscopeModel.Aquarius
                 HoroscopeInfo.Aries -> HoroscopeModel.Aries
                 HoroscopeInfo.Cancer -> HoroscopeModel.Cancer
-                HoroscopeInfo.Capricornio -> HoroscopeModel.Capricornio
-                HoroscopeInfo.Escorpio -> HoroscopeModel.Escorpio
-                HoroscopeInfo.Geminis -> HoroscopeModel.Geminis
+                HoroscopeInfo.Capricornio -> HoroscopeModel.Capricorn
+                HoroscopeInfo.Escorpio -> HoroscopeModel.Scorpio
+                HoroscopeInfo.Geminis -> HoroscopeModel.Gemini
                 HoroscopeInfo.Leo -> HoroscopeModel.Leo
                 HoroscopeInfo.Libra -> HoroscopeModel.Libra
-                HoroscopeInfo.Piscis -> HoroscopeModel.Piscis
-                HoroscopeInfo.Sagitario -> HoroscopeModel.Sagitario
-                HoroscopeInfo.Tauro -> HoroscopeModel.Tauro
+                HoroscopeInfo.Piscis -> HoroscopeModel.Pisces
+                HoroscopeInfo.Sagitario -> HoroscopeModel.Sagittarius
+                HoroscopeInfo.Tauro -> HoroscopeModel.Taurus
                 HoroscopeInfo.Virgo -> HoroscopeModel.Virgo
             }
 
